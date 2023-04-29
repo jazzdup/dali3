@@ -4,17 +4,22 @@ from dali_poo.bot import command_help
 respond_args = None
 ack_called = False
 
+
 def respond(*args, **kwargs):
     global respond_args
     respond_args = (args, kwargs)
 
+
 def ack(*args, **kwargs):
+    global ack_called
     ack_called = True
+
 
 def test_command_help():
     """
     tests the command_help function
     """
+    print("test")
     command_help(respond=respond, ack=ack)
 
     assert ack_called
