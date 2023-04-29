@@ -1,0 +1,36 @@
+---
+timeout: 2400s
+options:
+  substitution_option: 'ALLOW_LOOSE'
+
+steps:
+  - name: 'python:3.9'
+    entrypoint: '/bin/sh'
+    args:
+      - -c
+      - pip install tox && tox run
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', '${_IMAGE}', '.']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', '${_IMAGE}']
+
+  - name: ghcr.io/binxio/cru:1.0.0
+    env:
+      - HOME=/root
+    args: [
+      'update',
+      '--verbose',
+      '--repository', '${_GIT_REPOSITORY_URL}',
+      '--image-reference', '${_IMAGE}',
+      '--commit', 'deploy ${_IMAGE}',
+      'terraform/'
+    ]
+
+images:
+  - '${_IMAGE}'
+
+substitutions:
+  _IMAGE: 'europe-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/slackbot:${TAG_NAME:-${SHORT_SHA}}'
+  _GIT_REPOSITORY_URL: 'https://source.developers.google.com/p/dali3-385220/r/dali-poo'

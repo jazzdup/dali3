@@ -1,0 +1,17 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: a517e2c
+_src_path: https://github.com/binxio/slackbot-on-google-cloud-platform-template.git
+author: al skratch
+author_email: isitalexitis@gmail.com
+description: images with dall-e
+google_project: dali3-385220
+name: dali poo
+package_name: dali_poo
+primary_region: europe-west2
+replica_region: europe-west1
+repository_location: europe
+slackbot_command: /dali
+slackbot_name: dali-poo
+terraform_state_bucket: dali3-385220-terraform-state
+terraform_state_bucket_location: eu
+url: https://source.developers.google.com/p/dali3-385220/r/dali-poo

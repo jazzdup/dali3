@@ -1,0 +1,38 @@
+#cloud-config
+users:
+  - name: dali-poo
+    groups: docker
+
+write_files:
+  - path: /etc/systemd/system/dali-poo.service
+    permissions: '0644'
+    owner: root
+    content: |
+      [Unit]
+      Description=images with dall-e
+
+      [Service]
+      Type=simple
+      
+      User=dali-poo
+      Group=dali-poo
+      
+      ExecStartPre=/usr/bin/docker-credential-gcr configure-docker -include-artifact-registry
+      ExecStop=/usr/bin/docker stop dali-poo
+      
+      ExecStart=/usr/bin/docker run \
+        --init \
+        --rm \
+        --name dali-poo \
+        --network host \
+        europe-docker.pkg.dev/dali3-385220/dali-poo/slackbot:latest
+
+      Restart=always
+      SuccessExitStatus=0 SIGTERM
+      
+      [Install]
+      WantedBy=multi-user.target
+
+runcmd:
+  - systemctl daemon-reload
+  - systemctl start dali-poo.service
