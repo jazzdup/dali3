@@ -25,7 +25,7 @@ write_files:
         --rm \
         --name dali-poo \
         --network host \
-        europe-docker.pkg.dev/dali3-385220/dali-poo/slackbot:eba76b0
+        europe-docker.pkg.dev/dali3-385220/dali-poo/slackbot:05450d2
 
       Restart=always
       SuccessExitStatus=0 SIGTERM
