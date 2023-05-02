@@ -1,4 +1,4 @@
-# from dali_poo.bot import command_help
+from dali_poo.bot import command_help
 
 
 respond_args = None
@@ -19,10 +19,9 @@ def test_command_help():
     """
     tests the command_help function
     """
-    print("test")
-    # command_help(respond=respond, ack=ack)
+    command_help(respond=respond, ack=ack)
 
-    # assert ack_called
+    assert ack_called
 
     args, kwargs = respond_args
     expect = "Please add the commands available."

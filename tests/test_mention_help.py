@@ -3,9 +3,11 @@ from dali_poo.bot import mention_help
 
 say_args = ()
 
+
 def say(*args, **kwargs):
     global say_args
     say_args = (args, kwargs)
+
 
 def test_mention_help():
     """

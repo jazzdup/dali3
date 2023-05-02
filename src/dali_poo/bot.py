@@ -23,6 +23,25 @@ slackbot = App(
 DALLE_API_URL = "https://api.openai.com/v1/images/generations"
 DALLE_API_KEY = get_secret("dali-poo-dalle-token")
 
+
+def command_help(respond, ack):
+    ack()
+    respond(
+        """
+        Please add the commands available.
+        """
+    )
+
+
+def mention_help(event, say):
+    say(
+        """
+        Please add the mentions
+        """,
+        thread_ts=event["ts"]
+    )
+
+
 # Define a function to generate DALL-E images
 def generate_image(prompt):
     headers = {
@@ -67,6 +86,7 @@ def generate_and_post_image(ack, respond, command):
     else:
         respond("Sorry, I couldn't generate an image based on that prompt.")
 
+
 @click.command(help="starts dali poo")
 @click.option(
     "--socket-mode/--no-socket-mode", default=True, help="connection to Slack"
@@ -75,6 +95,12 @@ def main(socket_mode):
     """
     starts dali poo
     """
+    slackbot.event(
+        "app_mention",
+    )(mention_help)
+
+    slackbot.command("/dali")(command_help)
+
     if socket_mode:
         app_token = get_secret("dali-poo-app-token")
         handler = SocketModeHandler(slackbot, app_token)
