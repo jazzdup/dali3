@@ -80,6 +80,7 @@ def post_image(image_url, channel):
 # Define a new command that triggers the DALL-E image generation and posting
 # @slackbot.command("/dalle")
 def generate_and_post_image(ack, respond, command):
+    ack()
     prompt = command["text"]
     image_url = generate_image(prompt)
     if image_url:
