@@ -88,6 +88,7 @@ resource "google_secret_manager_secret" "slackbot" {
    "dali-poo-bot-token",
     "dali-poo-app-token",
     "dali-poo-signing-secret",
+    "dali-poo-dalle-token",
   ])
   secret_id = each.value
   replication {
