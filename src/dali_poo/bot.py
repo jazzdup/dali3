@@ -61,6 +61,7 @@ def generate_image(prompt):
     else:
         return None
 
+
 # Define a function to post an image in a Slack channel
 def post_image(image_url, channel):
     slackbot.client.chat_postMessage(
@@ -75,8 +76,9 @@ def post_image(image_url, channel):
         ],
     )
 
+
 # Define a new command that triggers the DALL-E image generation and posting
-@slackbot.command("/dalle")
+# @slackbot.command("/dalle")
 def generate_and_post_image(ack, respond, command):
     prompt = command["text"]
     image_url = generate_image(prompt)
@@ -99,7 +101,7 @@ def main(socket_mode):
         "app_mention",
     )(mention_help)
 
-    slackbot.command("/dali")(command_help)
+    slackbot.command("/dali")(generate_and_post_image)
 
     if socket_mode:
         app_token = get_secret("dali-poo-app-token")
